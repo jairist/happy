@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:happy/src/models/global.dart';
 import 'package:happy/src/blocs/login_bloc.dart';
 import 'package:happy/src/blocs/provider.dart';
+
+import '../models/global.dart';
  
 // void main() => runApp(LoginPage());
  
@@ -23,8 +26,6 @@ class LoginPage extends StatelessWidget {
   Widget _loginForm(BuildContext context){
     final bloc = Provider.of(context);
     final size = MediaQuery.of(context).size;
-
-
 
     return SingleChildScrollView(
       child: Column(
@@ -83,7 +84,7 @@ class LoginPage extends StatelessWidget {
         child: TextField(
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            icon: Icon(Icons.alternate_email, color: Colors.lightBlueAccent,),
+            icon: Icon(Icons.alternate_email, color: lightGreen,),
             hintText: 'ejemplo@correo.com',
             labelText: 'Correo electrónico',
             counterText: snapshot.data,
@@ -108,7 +109,7 @@ class LoginPage extends StatelessWidget {
             obscureText: true,
             // keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              icon: Icon(Icons.lock_outline, color: Colors.lightBlueAccent,),
+              icon: Icon(Icons.lock_outline, color: lightGreen,),
               // hintText: 'ejemplo@correo.com',
               labelText: 'Contraseña',
               counterText: snapshot.data,
@@ -125,11 +126,15 @@ class LoginPage extends StatelessWidget {
   Widget _crearBoton(LoginBloc bloc){
 
     return  StreamBuilder(
+      
       stream: bloc.formValidStream,
       // initialData: initialData ,
       builder: (BuildContext context, AsyncSnapshot snapshot){ 
         return RaisedButton(
+          
+          
           child: Container(
+          
             padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 20.0),
             child: Text('Ingresar'),
 
@@ -139,16 +144,18 @@ class LoginPage extends StatelessWidget {
             side: BorderSide(color: Colors.black26),
           ),
           elevation: 0.5,
-          color: Colors.lightBlueAccent,
+          color: Colors.lightGreen,
           textColor: Colors.white,
+          
           onPressed: snapshot.hasData ? (){
+            
     
               print('===============');
               print('Email    : ${bloc.email}');
               print('Password : ${bloc.password}');
               print('===============');
     
-            Navigator.pushNamed(context, 'home');
+            Navigator.of(context).pushNamed('home');
           } : null
         );
       },
@@ -165,8 +172,11 @@ class LoginPage extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: <Color>[
-            Color.fromRGBO(52, 54, 101, 1.0),
-            Color.fromRGBO(35, 37, 57, 1.0)
+            lightBlueIsh, lightGreen
+            // Color.fromRGBO(52, 54, 101, 1.0),
+            // Color.fromRGBO(35, 37, 57, 1.0)
+            // lightBlueIsh
+            
             
             // Color.fromRGBO(63, 63, 156, 1.0),
             // Color.fromRGBO(90, 70, 178, 1.0)

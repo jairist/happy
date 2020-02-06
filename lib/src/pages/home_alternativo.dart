@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:happy/src/models/global.dart';
 import 'package:happy/src/models/job.dart';
 
+import '../models/global.dart';
+import '../models/global.dart';
+import '../models/global.dart';
+
 void main() => runApp(HomeAlternativo());
 
 
 class HomeAlternativo extends StatefulWidget {
+
+  
 
   @override
   _HomeAlternativo createState() => _HomeAlternativo();
@@ -15,8 +21,10 @@ class _HomeAlternativo extends State<HomeAlternativo> {
 
   @override
   Widget build(BuildContext context) {
+    // final size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
+          
           child: Stack(  
               children: <Widget>[
                 Column(             
@@ -25,16 +33,19 @@ class _HomeAlternativo extends State<HomeAlternativo> {
                     children: <Widget>[
                       _crearTitulo(),
                       Container(
-                        height: 500,
+                        height: 600,
                         margin: EdgeInsets.only(top: 200.0, bottom: 10.0),
                         padding: EdgeInsets.all(2),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Container(
-                              height: 400,
-                              child: ListView(
-                                children: _getServiceBox(),
+                            Expanded(
+                              child: Container(
+                                // height:  size.height * 0.6,
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  children: _getServiceBox(),
+                                ),
                               ),
                             ), 
                           ],
@@ -52,7 +63,7 @@ class _HomeAlternativo extends State<HomeAlternativo> {
 
   Widget _crearTitulo(){
     return  Container(
-              padding: EdgeInsets.all(40),
+              padding: EdgeInsets.all(30),
               constraints: BoxConstraints.expand(height: 200),
               decoration: BoxDecoration(
                 gradient: new LinearGradient(
@@ -69,6 +80,7 @@ class _HomeAlternativo extends State<HomeAlternativo> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    Text('Hola Fulano de Tal !!', style: titleStyleWhite,),
                     Text('Selecciona el servicio a evaluar', style: titleStyleWhite,)
                   ],
                 ),
@@ -87,7 +99,7 @@ class _HomeAlternativo extends State<HomeAlternativo> {
 
   Widget _getServiceContainer(String categoryName) {
     return new Container(
-          margin: EdgeInsets.only(right: 10, left: 10, bottom: 10),
+          margin: EdgeInsets.only(right: 10, left: 10, bottom: 20),
           height: 180,
           width: 140,
           padding: EdgeInsets.all(1),
@@ -107,7 +119,7 @@ class _HomeAlternativo extends State<HomeAlternativo> {
               Container(
                 padding: EdgeInsets.only(top: 30),
                 height: 100,
-                width: 70,
+                width: 80,
                 child: FloatingActionButton(
                   backgroundColor: Colors.white,
                   child:  servicioToIcon[categoryName],
