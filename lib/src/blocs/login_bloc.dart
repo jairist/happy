@@ -24,10 +24,7 @@ class LoginBloc with Validators{
   //obtener el útimo valor ingresado a los streams 
   String get email      => _emailController.value;
   String get password   => _passwordsController.value;
-
-
-
-
+  
   //siempre liberar el stream luego de usarlo
 
   dispose(){

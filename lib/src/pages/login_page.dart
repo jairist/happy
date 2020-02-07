@@ -130,33 +130,33 @@ class LoginPage extends StatelessWidget {
       stream: bloc.formValidStream,
       // initialData: initialData ,
       builder: (BuildContext context, AsyncSnapshot snapshot){ 
-        return RaisedButton(
-          
-          
-          child: Container(
-          
-            padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 20.0),
-            child: Text('Ingresar'),
-
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-            side: BorderSide(color: Colors.black26),
-          ),
-          elevation: 0.5,
-          color: Colors.lightGreen,
-          textColor: Colors.white,
-          
-          onPressed: snapshot.hasData ? (){
+        return Hero(
+          tag: 'login',
+          child: RaisedButton(
             
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 20.0),
+              child: Text('Ingresar'),
+
+
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              side: BorderSide(color: Colors.black26),
+            ),
+            elevation: 0.5,
+            color: Colors.lightGreen,
+            textColor: Colors.white,
+            onPressed: snapshot.hasData ? (){
+              
+                print('===============');
+                print('Email    : ${bloc.email}');
+                print('Password : ${bloc.password}');
+                print('===============');
     
-              print('===============');
-              print('Email    : ${bloc.email}');
-              print('Password : ${bloc.password}');
-              print('===============');
-    
-            Navigator.of(context).pushNamed('home');
-          } : null
+              Navigator.of(context).pushNamed('home');
+            } : null
+          ),
         );
       },
     );
@@ -166,21 +166,13 @@ class LoginPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
      final randomNumber = Random();
 
-    final fondoMorado = Container(
+    final fondo = Container(
       height: size.height * 0.4,
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: <Color>[
             lightBlueIsh, lightGreen
-            // Color.fromRGBO(52, 54, 101, 1.0),
-            // Color.fromRGBO(35, 37, 57, 1.0)
-            // lightBlueIsh
-            
-            
-            // Color.fromRGBO(63, 63, 156, 1.0),
-            // Color.fromRGBO(90, 70, 178, 1.0)
-
           ]
         )
       ),
@@ -194,7 +186,6 @@ class LoginPage extends StatelessWidget {
         color: Color.fromRGBO(255, 255, 255, 0.09)
       ),
     );
-    
     final nombreUsuario = Container(
       padding: EdgeInsets.only(top: 80.0),
       child: Column(children: <Widget>[
@@ -206,10 +197,9 @@ class LoginPage extends StatelessWidget {
     
     return Stack(
       children: <Widget>[
-        fondoMorado,
+        fondo,
         Positioned( top: randomNumber.nextInt(10).toDouble(), left: randomNumber.nextInt(40).toDouble(), child: circulo,),
         Positioned( top: randomNumber.nextInt(80).toDouble(), right: randomNumber.nextInt(120).toDouble(), child: circulo,),
-        // Positioned( top: randomNumber.nextInt(30).toDouble(), left: -randomNumber.nextInt(50).toDouble(), child: circulo,),
         Positioned( bottom: randomNumber.nextInt(10).toDouble(), right: randomNumber.nextInt(120).toDouble(), child: circulo,),
         Positioned( bottom: randomNumber.nextInt(110).toDouble(), right: -randomNumber.nextInt(120).toDouble(), child: circulo,),
         Positioned( top: randomNumber.nextInt(90).toDouble(), left: randomNumber.nextInt(120).toDouble(), child: circulo,),
