@@ -13,8 +13,6 @@ void main() => runApp(HomeAlternativo());
 
 class HomeAlternativo extends StatefulWidget {
 
-  
-
   @override
   _HomeAlternativo createState() => _HomeAlternativo();
 }
@@ -157,6 +155,8 @@ titulo
                   child:  servicioToIcon[categoryName],
                   elevation: 20,
                   onPressed: () {
+                    Navigator.of(context).pushNamed('evaluar', arguments: categoryName);
+                    // Navigator.pushNamed(context, 'detalle', arguments: pelicula );
                     print('Se presiono sobre $categoryName');
 
                   },
