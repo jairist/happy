@@ -24,7 +24,6 @@ class _HomeAlternativo extends State<HomeAlternativo> {
     // final size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
-          
           child: Stack(  
               children: <Widget>[
                 Column(             
