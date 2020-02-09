@@ -4,12 +4,14 @@
 // import 'package:happy/pages/login_page.dart';
 // import 'package:disenos/pages/scroll_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:happy/src/blocs/provider.dart';
 import 'package:happy/src/pages/evaluacion_page.dart';
+// import 'package:happy/src/pages/gracias_page.dart';
 import 'package:happy/src/pages/home_alternativo.dart';
-import 'package:happy/src/pages/home_page.dart';
+// import 'package:happy/src/pages/home_page.dart';
 import 'package:happy/src/pages/login_page.dart';
+import 'package:happy/src/pages/splash_page.dart';
 
 import 'src/models/global.dart';
 
@@ -29,16 +31,18 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Happy!',
-      initialRoute: 'home',
+      initialRoute: 'gracias',
       routes: {
         // 'basico' : (BuildContext context) => BasicoPage(), 
         'login' : (BuildContext context) => LoginPage(), 
         // 'home' : (BuildContext context) => HomePage(), 
         'home' : (BuildContext context) => HomeAlternativo(), 
         'evaluar' : (BuildContext context) => EvaluacionPage(), 
+        'gracias' : (BuildContext context) => GraciasPage(), 
       },
       theme: ThemeData(
-        primaryColor: lightGreen
+        primaryColor: lightGreen,
+        
       ),
     ),
     );

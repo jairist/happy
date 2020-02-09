@@ -22,10 +22,11 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
   @override
   Widget build(BuildContext context) {
     final String servicio = ModalRoute.of(context).settings.arguments;
+    evaluacion.servicio = servicio;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: Text('$servicio'),
+        title: Text('$servicio', style: TextStyle(color: Colors.white)),
         leading: IconButton(icon:Icon(Icons.arrow_back),
           onPressed:() => Navigator.pop(context, false),
         ),
@@ -73,7 +74,7 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
         children: <Widget>[
            _crearEstrellas(context, 3),
            _crearCampoDescripcion(servicio),
-           _crearBoton()
+           _crearBoton(context)
            
               // Add TextFormFields and RaisedButton here.
         ]
@@ -118,6 +119,7 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
     },
     onRatingUpdate: (rating) {
       evaluacion.puntuacion = rating;
+     
       print(rating);
     },
     ); 
@@ -126,19 +128,18 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
   Widget _crearCampoDescripcion(String servicio) {
     return Container(
       padding: EdgeInsets.only(top: 20.0),
-
       child: TextFormField(
         keyboardType: TextInputType.multiline,
-        // maxLines: whatever,
-        
-        // key: _formKey,
+        maxLines: null,
         initialValue: evaluacion.descripcion,
         textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
-          labelText: '$servicio',
-          hintText: 'Deseas darnos algunos detalles'
+          labelText: 'Escriba un comentario',
+          hintText: 'Compartanos algunos detalles sobre el servicio'
+          
         ),
 
+        onSaved: (value ) => evaluacion.descripcion = value,
         validator: (value) {
           if(value.length < 1){
             return 'Por favor ingrese una descripcion';
@@ -151,7 +152,7 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
     );
       
   }
-   Widget _crearBoton() {
+   Widget _crearBoton(BuildContext context ) {
         return RaisedButton.icon(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0)
@@ -162,23 +163,22 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
           label: Text('Guardar'),
           icon: Icon(Icons.save_alt ),
           // textColor: Colors.white,
-          onPressed: _submit ,
+          onPressed: (){
+            
+            if(!_formKey.currentState.validate()) return;
+          
+            //ahora cambio el estado del formulario. 
+            _formKey.currentState.save();
+            print(evaluacion.descripcion);
+            print(evaluacion.usuario);
+            print(evaluacion.puntuacion);
+            print(evaluacion.servicio);
+
+            evaluacionProvider.crearEvaluacion(evaluacion);
+
+            Navigator.of(context).pushNamed('gracias');
+          },
+          
           );
       }
-
-      _submit(){
-          if(!_formKey.currentState.validate()) return;
-          print('todo OK ');
-          //ahora cambio el estado del formulario. 
-          _formKey.currentState.save();
-
-          print(evaluacion.descripcion);
-          print(evaluacion.usuario);
-          print(evaluacion.puntuacion);
-
-          
-
-
-
-  }
 }
