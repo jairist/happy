@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:happy/src/models/evaluacion_model.dart';
+import 'package:happy/src/models/global.dart';
 import 'package:happy/src/provider/evaluacion_provider.dart';
 import 'package:happy/src/widgets/header.dart';
 import 'package:happy/src/widgets/star_display_widget.dart';
@@ -25,6 +26,10 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
     evaluacion.servicio = servicio;
     return Scaffold(
       appBar: AppBar(
+        // backgroundColor: Gradient(colors: [lightBlueIsh, lightGreen]),
+        flexibleSpace: Container(
+          decoration: BoxDecoration( gradient: LinearGradient(colors:  [lightBlueIsh, lightGreen])),
+        ),
         automaticallyImplyLeading: true,
         title: Text('$servicio', style: TextStyle(color: Colors.white)),
         leading: IconButton(icon:Icon(Icons.arrow_back),

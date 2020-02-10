@@ -26,7 +26,8 @@ class HeaderPage extends StatelessWidget {
       ),
     );
 
-    final fondo = Container(
+    final fondo = SafeArea( 
+      child : Container(
       padding: EdgeInsets.all(30),
               constraints: BoxConstraints.expand(height: 150),
               decoration: BoxDecoration(
@@ -39,7 +40,7 @@ class HeaderPage extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight:  Radius.circular(30))
               )
-    );
+    ));
     final titulo =   Container(    
           padding: EdgeInsets.only(top: 40.0, left: 20.0),
           child: Column(

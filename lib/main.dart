@@ -1,8 +1,4 @@
-// import 'package:disenos/pages/basico_page.dart';
-// import 'package:disenos/pages/bienvenida_page.dart';
-// import 'package:disenos/pages/botones_page.dart';
-// import 'package:happy/pages/login_page.dart';
-// import 'package:disenos/pages/scroll_page.dart';
+
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:happy/src/blocs/provider.dart';
@@ -16,7 +12,7 @@ import 'package:happy/src/pages/splash_page.dart';
 import 'src/models/global.dart';
 
   void main() => runApp(MyApp());
-
+ 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
@@ -31,7 +27,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Happy!',
-      initialRoute: 'gracias',
+      initialRoute: 'home',
       routes: {
         // 'basico' : (BuildContext context) => BasicoPage(), 
         'login' : (BuildContext context) => LoginPage(), 
