@@ -112,7 +112,7 @@ class LoginPage extends StatelessWidget {
               icon: Icon(Icons.lock_outline, color: lightGreen,),
               // hintText: 'ejemplo@correo.com',
               labelText: 'Contraseña',
-              counterText: snapshot.data,
+              // counterText: snapshot.data,
               errorText: snapshot.error
             ),
             onChanged: bloc.changePassword,

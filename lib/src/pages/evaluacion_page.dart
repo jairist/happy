@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:happy/src/models/evaluacion_model.dart';
@@ -5,6 +7,7 @@ import 'package:happy/src/models/global.dart';
 import 'package:happy/src/provider/evaluacion_provider.dart';
 import 'package:happy/src/widgets/header.dart';
 import 'package:happy/src/widgets/star_display_widget.dart';
+import 'package:image_picker/image_picker.dart';
  
 void main() => runApp(EvaluacionPage());
  
@@ -19,6 +22,8 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
   final  evaluacionProvider = new EvaluacionProvider();
 
   EvaluacionModelo evaluacion = new EvaluacionModelo();
+
+  File foto;
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +42,10 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
         ),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.photo_size_select_actual), 
-          onPressed: (){}
+          onPressed: _seleccionarFoto
           ),
           IconButton(icon: Icon(Icons.camera_alt), 
-          onPressed: (){})
+          onPressed: _tomarFoto)
         ],
       ),
          body: SingleChildScrollView(
@@ -77,6 +82,7 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
         key: _formKey,
         child: Column(
         children: <Widget>[
+           _mostrarFoto(),
            _crearEstrellas(context, 3),
            _crearCampoDescripcion(servicio),
            _crearBoton(context)
@@ -186,4 +192,48 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
           
           );
       }
+
+       _mostrarFoto() {
+ 
+    if (evaluacion.fotoUrl != null) {
+ 
+      return Container();
+ 
+    } else {
+ 
+      if( foto != null ){
+        return Image.file(
+          foto,
+          fit: BoxFit.cover,
+          height: 300.0,
+        );
+      }
+      return Image.asset('assets/no-image.png');
+    }
+  }
+
+
+  _seleccionarFoto() async {
+    _procesarImagen(ImageSource.gallery);
+
+  }
+
+  _tomarFoto() async{
+    _procesarImagen(ImageSource.camera);
+
+  }
+
+    _procesarImagen( ImageSource origen) async {
+    foto = await ImagePicker.pickImage(
+      source: origen
+    );
+
+    if(foto != null){
+      //Limpiez
+    }
+    setState(() {
+      
+    });
+
+  }
 }
