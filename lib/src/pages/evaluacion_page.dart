@@ -20,16 +20,20 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
 
   final _formKey = GlobalKey<FormState>();
   final  evaluacionProvider = new EvaluacionProvider();
+  final sacaffoldKey = GlobalKey<ScaffoldState>();
 
   EvaluacionModelo evaluacion = new EvaluacionModelo();
 
   File foto;
+  bool _guardando = false;
+  
 
   @override
   Widget build(BuildContext context) {
     final String servicio = ModalRoute.of(context).settings.arguments;
     evaluacion.servicio = servicio;
     return Scaffold(
+      key: sacaffoldKey,
       appBar: AppBar(
         // backgroundColor: Gradient(colors: [lightBlueIsh, lightGreen]),
         flexibleSpace: Container(
@@ -174,23 +178,42 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
           label: Text('Guardar'),
           icon: Icon(Icons.save_alt ),
           // textColor: Colors.white,
-          onPressed: (){
+          onPressed: () async{
             
             if(!_formKey.currentState.validate()) return;
+            setState(() {_guardando = true; });
           
             //ahora cambio el estado del formulario. 
             _formKey.currentState.save();
-            print(evaluacion.descripcion);
-            print(evaluacion.usuario);
-            print(evaluacion.puntuacion);
-            print(evaluacion.servicio);
 
-            evaluacionProvider.crearEvaluacion(evaluacion);
+            if(foto != null){
+              evaluacion.fotoUrl = await  evaluacionProvider.subirImagen(foto);
+            }
+            if (evaluacion.id == null){
+              evaluacionProvider.crearEvaluacion(evaluacion);
+            }else{
+              evaluacionProvider.editarEvaluacion(evaluacion);
+
+            }
+
+            mostrarSnackbar('Registro guardado');
+
+
 
             Navigator.of(context).pushNamed('gracias');
           },
           
           );
+      }
+
+        void mostrarSnackbar(String mensaje){
+
+        final snackbar = SnackBar(
+          content: Text(mensaje),
+          duration: Duration(milliseconds: 1500),
+        );
+
+        sacaffoldKey.currentState.showSnackBar(snackbar);
       }
 
        _mostrarFoto() {
@@ -223,17 +246,17 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
 
   }
 
-    _procesarImagen( ImageSource origen) async {
-    foto = await ImagePicker.pickImage(
-      source: origen
-    );
+  _procesarImagen( ImageSource origen) async {
+  foto = await ImagePicker.pickImage(
+    source: origen
+  );
 
-    if(foto != null){
-      //Limpiez
-    }
-    setState(() {
-      
-    });
+  if(foto != null){
+    evaluacion.fotoUrl = null;
+  }
+  setState(() {
+    
+  });
 
   }
 }
