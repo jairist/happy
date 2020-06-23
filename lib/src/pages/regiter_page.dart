@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:happy/src/utils/utils.dart' as utils;
+
 import 'package:flutter/material.dart';
 import 'package:happy/src/models/global.dart';
-import 'package:happy/src/blocs/login_bloc.dart';
 import 'package:happy/src/blocs/provider.dart';
 import 'package:happy/src/provider/usuario_provider.dart';
 
@@ -11,26 +11,24 @@ import '../models/global.dart';
  
 // void main() => runApp(LoginPage());
  
-class LoginPage extends StatelessWidget {
-
+class RegisterPage extends StatelessWidget {
   final usuarioProvider = new UsuarioProvider();
-
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
           children: <Widget>[
             _creaFondo(context),
-            _loginForm(context)
+            _registerForm(context)
 
           ]
           ),
       );
   }
 
-  Widget _loginForm(BuildContext context){
-    final bloc = Provider.of(context);
+  Widget _registerForm(BuildContext context){
+    final bloc = Provider.registerBlocOf(context);
     final size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
@@ -61,6 +59,8 @@ class LoginPage extends StatelessWidget {
               children: <Widget>[
                 Text ('Ingreso',style: TextStyle(fontSize: 20.0),),
                 SizedBox(height: 20.0,),
+                _crearNombreUsuario(bloc),
+                SizedBox(height: 20.0,),
                 _crearEmail(bloc),
                 SizedBox(height: 10.0,),
                 _crearPassword(bloc),
@@ -70,10 +70,7 @@ class LoginPage extends StatelessWidget {
             ),
           )
           ,
-         FlatButton(child:  Text('Crear una nueva cuenta'),
-              onPressed: ()=> Navigator.pushReplacementNamed(context, 'registro'),
-          ),
-          SizedBox( height: 50.0 )
+          Text('Olvidó la consaseña? ')
         
         ],
       ),
@@ -81,7 +78,31 @@ class LoginPage extends StatelessWidget {
 
   }
 
-  Widget _crearEmail(LoginBloc bloc){
+  Widget _crearNombreUsuario(RegisterBloc bloc){
+
+    return  StreamBuilder(
+
+      stream: bloc.userNameStream,
+      // initialData: initialData ,
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.0),
+        child: TextField(
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            icon: Icon(Icons.account_circle, color: lightGreen,),
+            hintText: 'Nombre de usuario',
+            labelText: 'Usuario',
+            counterText: snapshot.data,
+            errorText: snapshot.error
+          ),
+          onChanged: bloc.changeUserName,
+        ),
+      );  
+      },
+    );
+  }
+  Widget _crearEmail(RegisterBloc bloc){
 
     return  StreamBuilder(
 
@@ -106,7 +127,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _crearPassword(LoginBloc bloc){
+  Widget _crearPassword(RegisterBloc bloc){
 
     return StreamBuilder(
       stream: bloc.passwordStream ,
@@ -132,7 +153,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _crearBoton(LoginBloc bloc){
+  Widget _crearBoton(RegisterBloc bloc){
 
     return  StreamBuilder(
       
@@ -140,12 +161,12 @@ class LoginPage extends StatelessWidget {
       // initialData: initialData ,
       builder: (BuildContext context, AsyncSnapshot snapshot){ 
         return Hero(
-          tag: 'login',
+          tag: 'Registo',
           child: RaisedButton(
             
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 20.0),
-              child: Text('Ingresar'),
+              child: Text('Registarse'),
 
 
             ),
@@ -157,27 +178,27 @@ class LoginPage extends StatelessWidget {
             color: Colors.lightGreen,
             textColor: Colors.white,
             onPressed: snapshot.hasData ? ()=> _register(bloc, context) : null
-          ),
+            
+        ),
         );
       },
     );
   }
+  _register(RegisterBloc bloc, BuildContext context) async {
 
-    _register(LoginBloc bloc, BuildContext context) async {
+    // usuarioProvider.nuevoUsuario(bloc.email, bloc.password);
 
-      // usuarioProvider.nuevoUsuario(bloc.email, bloc.password);
+    Map info =   await usuarioProvider.nuevoUsuario(bloc.email, bloc.password);
 
-      Map info =   await usuarioProvider.login(bloc.email, bloc.password);
+    if(info['ok']){
+      Navigator.pushReplacementNamed(context, 'login');
+      
 
-      if(info['ok']){
-        Navigator.pushReplacementNamed(context, 'home');
-        
+    }else {
+      utils.mostrarAlerta(context, info['mensaje']);
+    }
 
-      }else {
-        utils.mostrarAlerta(context, info['mensaje']);
-      }
-
-      // Navigator.pushReplacementNamed(context, 'login');
+    // Navigator.pushReplacementNamed(context, 'login');
 
   }
 
@@ -210,7 +231,7 @@ class LoginPage extends StatelessWidget {
       child: Column(children: <Widget>[
         Icon(Icons.sentiment_very_satisfied, color: Colors.white, size: 80.0,),
         SizedBox(height: 10.0, width: double.infinity,),
-        Text( 'Acceder', style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.bold),)
+        Text('Casi Listo !!', style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.bold),)
       ],),
     );
     

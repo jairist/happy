@@ -33,6 +33,18 @@ class Validators {
         sink.addError('Más de 6 carácteres por favor');
       }
     }
+  );
+    final validarUserName = StreamTransformer<String, String>.fromHandlers(
+    handleData: (username, sink){
+
+      //si el password introducido es mayor a 6 entonces lo dejo fluir de lo contrario no. 
+      if(username.length >= 6 && !username.contains(' ')){
+        sink.add(username);
+
+      }else{
+        sink.addError('Más de 6 carácteres por favor y no debe contener espacios en blanco');
+      }
+    }
 
   );
 }

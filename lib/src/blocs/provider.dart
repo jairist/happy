@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:happy/src/blocs/login_bloc.dart';
 export 'package:happy/src/blocs/login_bloc.dart';
 
+import 'package:happy/src/blocs/register_bloc.dart';
+export 'package:happy/src/blocs/register_bloc.dart';
+
 class Provider extends InheritedWidget{
 
+  final loginBloc     = LoginBloc();
+  final registerBloc  = RegisterBloc();
   
   static Provider _instancia;
 
@@ -18,7 +23,6 @@ class Provider extends InheritedWidget{
     : super(key : key, child: child);
 
 
-  final loginBloc = LoginBloc();
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {
@@ -27,7 +31,11 @@ class Provider extends InheritedWidget{
   
   static LoginBloc of ( BuildContext context ){
    return context.dependOnInheritedWidgetOfExactType<Provider>().loginBloc;
-}
+  }
+
+  static RegisterBloc registerBlocOf ( BuildContext context ){
+   return context.dependOnInheritedWidgetOfExactType<Provider>().registerBloc;
+  }
 
   
 
