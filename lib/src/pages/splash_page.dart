@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:happy/src/models/global.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 
 class GraciasPage extends StatefulWidget {
   const GraciasPage({Key key}) : super(key: key);
@@ -16,7 +18,14 @@ class _GraciasPageState extends State<GraciasPage> {
   @override
   void initState(){
     super.initState();
-    new Future.delayed(const Duration(seconds: 5), ()=> Navigator.of(context).pushNamed('home'));
+    if (kIsWeb) {
+    // running on the web!
+      new Future.delayed(const Duration(seconds: 2), ()=> Navigator.of(context).pushNamed('login'));
+      } else {
+    // NOT running on the web! You can check for additional platforms here.
+      new Future.delayed(const Duration(seconds: 5), ()=> Navigator.of(context).pushNamed('home'));
+      }
+    
   }
  
 
@@ -72,9 +81,15 @@ class _GraciasPageState extends State<GraciasPage> {
         Positioned( top: randomNumber.nextInt(10).toDouble(), left: randomNumber.nextInt(40).toDouble(), child: circulo,),
         Positioned( top: randomNumber.nextInt(80).toDouble(), right: randomNumber.nextInt(120).toDouble(), child: circulo,),
         Positioned( bottom: randomNumber.nextInt(10).toDouble(), right: randomNumber.nextInt(120).toDouble(), child: circulo,),
-        Positioned( bottom: randomNumber.nextInt(110).toDouble(), right: -randomNumber.nextInt(120).toDouble(), child: circulo,),
+        Positioned( bottom: randomNumber.nextInt(110).toDouble(), right: -randomNumber.nextInt(20).toDouble(), child: circulo,),
         Positioned( top: randomNumber.nextInt(90).toDouble(), left: randomNumber.nextInt(120).toDouble(), child: circulo,),
-        Positioned( bottom: randomNumber.nextInt(120).toDouble(), left: randomNumber.nextInt(120).toDouble(), child: circulo,),
+        Positioned( bottom: randomNumber.nextInt(120).toDouble(), left: randomNumber.nextInt(30).toDouble(), child: circulo,),
+        Positioned( bottom: randomNumber.nextInt(120).toDouble(), left: randomNumber.nextInt(300).toDouble(), child: circulo,),
+        Positioned( bottom: randomNumber.nextInt(110).toDouble(), left: randomNumber.nextInt(40).toDouble(), child: circulo,),
+        Positioned( bottom: randomNumber.nextInt(20).toDouble(), left: randomNumber.nextInt(120).toDouble(), child: circulo,),
+        Positioned( bottom: randomNumber.nextInt(60).toDouble(), left: randomNumber.nextInt(30).toDouble(), child: circulo,),
+        Positioned( bottom: randomNumber.nextInt(40).toDouble(), left: randomNumber.nextInt(120).toDouble(), child: circulo,),
+        Positioned( bottom: randomNumber.nextInt(30).toDouble(), left: randomNumber.nextInt(120).toDouble(), child: circulo,),
 
         nombreUsuario
       ],

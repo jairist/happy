@@ -5,11 +5,13 @@ import 'package:happy/src/blocs/provider.dart';
 import 'package:happy/src/pages/evaluacion_page.dart';
 // import 'package:happy/src/pages/gracias_page.dart';
 import 'package:happy/src/pages/home_alternativo.dart';
+import 'package:happy/src/pages/home_back_office.dart';
 // import 'package:happy/src/pages/home_page.dart';
 import 'package:happy/src/pages/login_page.dart';
 import 'package:happy/src/pages/regiter_page.dart';
 import 'package:happy/src/pages/splash_page.dart';
 import 'package:happy/src/preferencias_usuario/preferencias_usuario.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'src/models/global.dart';
 
@@ -34,25 +36,63 @@ class MyApp extends StatelessWidget {
     // SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle.light.copyWith(
     //   statusBarColor: Colors.transparent
     // )); 
-
-    return Provider(
-      child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Happy!',
-      initialRoute: 'login',
-      routes: {
-        // 'basico' : (BuildContext context) => BasicoPage(), 
-        'login'     : (BuildContext context) => LoginPage(), 
-        'registro'  : (BuildContext context) => RegisterPage(), 
-        'home'      : (BuildContext context) => HomeAlternativo(), 
-        'evaluar'   : (BuildContext context) => EvaluacionPage(), 
-        'gracias'   : (BuildContext context) => GraciasPage(), 
-      },
-      theme: ThemeData(
-        primaryColor: lightGreen,
-        
-      ),
-    ),
-    );
+    
+    if (kIsWeb) {
+    // running on the web!
+      return buildProviderWeb();
+      } else {
+    // NOT running on the web! You can check for additional platforms here.
+      return buildProviderApp();
+      }
+    
   }
+
+  Provider buildProviderWeb() {
+    return Provider(
+    child: MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'Happy!',
+    initialRoute: 'login',
+    routes: {
+      // 'basico' : (BuildContext context) => BasicoPage(), 
+      'login'     : (BuildContext context) => LoginPage(), 
+      'registro'  : (BuildContext context) => RegisterPage(), 
+      //'home'      : (BuildContext context) => HomeAlternativo(), 
+      'home'      : (BuildContext context) => HomeScreen(),  
+      'evaluar'   : (BuildContext context) => EvaluacionPage(), 
+      'gracias'   : (BuildContext context) => GraciasPage(), 
+    },
+    theme: ThemeData(
+      primaryColor: lightGreen,
+      
+    ),
+  ),
+  );
+  }
+
+  Provider buildProviderApp() {
+    return Provider(
+    child: MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'Happy!',
+    initialRoute: 'login',
+    routes: {
+      // 'basico' : (BuildContext context) => BasicoPage(), 
+      'login'     : (BuildContext context) => LoginPage(), 
+      'registro'  : (BuildContext context) => RegisterPage(), 
+      'home'      : (BuildContext context) => HomeAlternativo(), 
+      //'home'      : (BuildContext context) => HomeScreen(),  
+      'evaluar'   : (BuildContext context) => EvaluacionPage(), 
+      'gracias'   : (BuildContext context) => GraciasPage(), 
+    },
+    theme: ThemeData(
+      primaryColor: lightGreen,
+      fontFamily: 'HelveticaNeue',
+
+      
+    ),
+  ),
+  );
+  }
+
 }

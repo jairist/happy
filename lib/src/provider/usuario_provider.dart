@@ -34,9 +34,6 @@ class UsuarioProvider{
 
   }
 
-
-
-
   Future<Map<String, dynamic>>nuevoUsuario(String email, String password) async {
     final authData = {
       'email'     :email,

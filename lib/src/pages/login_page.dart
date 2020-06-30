@@ -6,6 +6,7 @@ import 'package:happy/src/models/global.dart';
 import 'package:happy/src/blocs/login_bloc.dart';
 import 'package:happy/src/blocs/provider.dart';
 import 'package:happy/src/provider/usuario_provider.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../models/global.dart';
  
@@ -32,6 +33,11 @@ class LoginPage extends StatelessWidget {
   Widget _loginForm(BuildContext context){
     final bloc = Provider.of(context);
     final size = MediaQuery.of(context).size;
+    var dimesionWidth = 0.85;
+    
+    if(kIsWeb){
+      dimesionWidth = 0.39;
+    }
 
     return SingleChildScrollView(
       child: Column(
@@ -41,34 +47,7 @@ class LoginPage extends StatelessWidget {
               height: 180.0,
             ),
           ),
-          Container(
-            width: size.width * 0.85,
-            margin: EdgeInsets.symmetric(vertical: 30.0),
-            padding: EdgeInsets.symmetric(vertical: 50.0, ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(5.0),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 3.0,
-                  offset: Offset(0.0, 5.0),
-                  spreadRadius: 3.0
-                )
-              ]
-            ),
-            child: Column(
-              children: <Widget>[
-                Text ('Ingreso',style: TextStyle(fontSize: 20.0),),
-                SizedBox(height: 20.0,),
-                _crearEmail(bloc),
-                SizedBox(height: 10.0,),
-                _crearPassword(bloc),
-                SizedBox(height: 30.0,),
-                _crearBoton(bloc)
-              ],
-            ),
-          )
+          contanierWithdDimension(size, bloc, dimesionWidth)
           ,
          FlatButton(child:  Text('Crear una nueva cuenta'),
               onPressed: ()=> Navigator.pushReplacementNamed(context, 'registro'),
@@ -79,6 +58,38 @@ class LoginPage extends StatelessWidget {
       ),
     );
 
+  }
+
+  Container contanierWithdDimension(Size size, LoginBloc bloc, double dimesionWidth) {
+
+      return Container(
+          width: size.width * dimesionWidth,
+          margin: EdgeInsets.symmetric(vertical: 30.0),
+          padding: EdgeInsets.symmetric(vertical: 50.0, ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5.0),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 3.0,
+                offset: Offset(0.0, 5.0),
+                spreadRadius: 3.0
+              )
+            ]
+          ),
+          child: Column(
+            children: <Widget>[
+              Text ('Ingreso',style: TextStyle(fontSize: 20.0),),
+              SizedBox(height: 20.0,),
+              _crearEmail(bloc),
+              SizedBox(height: 10.0,),
+              _crearPassword(bloc),
+              SizedBox(height: 30.0,),
+              _crearBoton(bloc)
+            ],
+          ),
+        );
   }
 
   Widget _crearEmail(LoginBloc bloc){

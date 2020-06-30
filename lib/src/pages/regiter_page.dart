@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:happy/src/utils/utils.dart' as utils;
 
 import 'package:flutter/material.dart';
@@ -30,6 +31,11 @@ class RegisterPage extends StatelessWidget {
   Widget _registerForm(BuildContext context){
     final bloc = Provider.registerBlocOf(context);
     final size = MediaQuery.of(context).size;
+    var dimensionWidth = 0.85;
+
+    if(kIsWeb){
+      dimensionWidth = 0.39;
+    }
 
     return SingleChildScrollView(
       child: Column(
@@ -39,36 +45,7 @@ class RegisterPage extends StatelessWidget {
               height: 180.0,
             ),
           ),
-          Container(
-            width: size.width * 0.85,
-            margin: EdgeInsets.symmetric(vertical: 30.0),
-            padding: EdgeInsets.symmetric(vertical: 50.0, ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(5.0),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 3.0,
-                  offset: Offset(0.0, 5.0),
-                  spreadRadius: 3.0
-                )
-              ]
-            ),
-            child: Column(
-              children: <Widget>[
-                Text ('Ingreso',style: TextStyle(fontSize: 20.0),),
-                SizedBox(height: 20.0,),
-                _crearNombreUsuario(bloc),
-                SizedBox(height: 20.0,),
-                _crearEmail(bloc),
-                SizedBox(height: 10.0,),
-                _crearPassword(bloc),
-                SizedBox(height: 30.0,),
-                _crearBoton(bloc)
-              ],
-            ),
-          )
+          containerWithDimension(size, bloc, dimensionWidth)
           ,
           Text('Olvidó la consaseña? ')
         
@@ -76,6 +53,39 @@ class RegisterPage extends StatelessWidget {
       ),
     );
 
+  }
+
+  Container containerWithDimension(Size size, RegisterBloc bloc, double dimensionWidth) {
+    return Container(
+          width: size.width * dimensionWidth,
+          margin: EdgeInsets.symmetric(vertical: 30.0),
+          padding: EdgeInsets.symmetric(vertical: 50.0, ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5.0),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 3.0,
+                offset: Offset(0.0, 5.0),
+                spreadRadius: 3.0
+              )
+            ]
+          ),
+          child: Column(
+            children: <Widget>[
+              //Text ('Ingreso',style: TextStyle(fontSize: 20.0),),
+              SizedBox(height: 20.0,),
+              _crearNombreUsuario(bloc),
+              SizedBox(height: 20.0,),
+              _crearEmail(bloc),
+              SizedBox(height: 10.0,),
+              _crearPassword(bloc),
+              SizedBox(height: 30.0,),
+              _crearBoton(bloc)
+            ],
+          ),
+        );
   }
 
   Widget _crearNombreUsuario(RegisterBloc bloc){
@@ -161,7 +171,7 @@ class RegisterPage extends StatelessWidget {
       // initialData: initialData ,
       builder: (BuildContext context, AsyncSnapshot snapshot){ 
         return Hero(
-          tag: 'Registo',
+          tag: '  ',
           child: RaisedButton(
             
             child: Container(
@@ -231,7 +241,7 @@ class RegisterPage extends StatelessWidget {
       child: Column(children: <Widget>[
         Icon(Icons.sentiment_very_satisfied, color: Colors.white, size: 80.0,),
         SizedBox(height: 10.0, width: double.infinity,),
-        Text('Casi Listo !!', style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.bold),)
+        Text('Registro !!', style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.bold),)
       ],),
     );
     

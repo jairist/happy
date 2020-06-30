@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:happy/src/models/global.dart';
-import 'package:happy/src/models/job.dart';
 
 import '../models/global.dart';
 import '../models/global.dart';
