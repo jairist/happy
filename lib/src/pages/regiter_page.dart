@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:happy/src/preferencias_usuario/preferencias_usuario.dart';
 import 'package:happy/src/utils/utils.dart' as utils;
 
 import 'package:flutter/material.dart';
@@ -14,9 +15,12 @@ import '../models/global.dart';
  
 class RegisterPage extends StatelessWidget {
   final usuarioProvider = new UsuarioProvider();
+  final _prefs = new PreferenciasUsuario();
   
   @override
   Widget build(BuildContext context) {
+    
+
     return Scaffold(
         body: Stack(
           children: <Widget>[
@@ -47,8 +51,9 @@ class RegisterPage extends StatelessWidget {
           ),
           containerWithDimension(size, bloc, dimensionWidth)
           ,
-          Text('Olvidó la consaseña? ')
-        
+          FlatButton(child:  Text('Ya tienes cuenta ? Login'),
+              onPressed: ()=> Navigator.pushReplacementNamed(context, 'login'),
+          ),       
         ],
       ),
     );
@@ -177,8 +182,6 @@ class RegisterPage extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 20.0),
               child: Text('Registarse'),
-
-
             ),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),
@@ -201,9 +204,9 @@ class RegisterPage extends StatelessWidget {
     Map info =   await usuarioProvider.nuevoUsuario(bloc.email, bloc.password);
 
     if(info['ok']){
-      Navigator.pushReplacementNamed(context, 'login');
-      
+      _prefs.userName = bloc.userName.toString();
 
+      Navigator.pushReplacementNamed(context, 'login');
     }else {
       utils.mostrarAlerta(context, info['mensaje']);
     }

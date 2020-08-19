@@ -80,7 +80,7 @@ class EvaluacionProvider{
   
   Future<String> obtenerUserName( String id ) async { 
 
-    final url  = '$_url/evaluaciones/$id.json?auth=${_prefs.token}';
+    final url  = '$_url/usuarios/$id.json?auth=${_prefs.token}';
     final resp = await http.get(url);
     final decodedData = json.decode(resp.body);
     final userName = decodedData['user'];

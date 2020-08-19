@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _loginForm(BuildContext context){
-    final bloc = Provider.of(context);
+    final bloc = Provider.loginBlocOf(context);
     final size = MediaQuery.of(context).size;
     var dimesionWidth = 0.85;
     
@@ -52,12 +52,13 @@ class LoginPage extends StatelessWidget {
          FlatButton(child:  Text('Crear una nueva cuenta'),
               onPressed: ()=> Navigator.pushReplacementNamed(context, 'registro'),
           ),
-          SizedBox( height: 50.0 )
-        
+          FlatButton(child:  Text('Olvidó la contraseña'),
+              onPressed: ()=> Navigator.pushReplacementNamed(context, 'cambiarClave'),
+          ),
+          SizedBox( height: 10.0 )
         ],
       ),
     );
-
   }
 
   Container contanierWithdDimension(Size size, LoginBloc bloc, double dimesionWidth) {

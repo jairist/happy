@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:happy/src/blocs/provider.dart';
 import 'package:happy/src/models/global.dart';
+import 'package:happy/src/preferencias_usuario/preferencias_usuario.dart';
 
-import '../models/global.dart';
-import '../models/global.dart';
 import '../models/global.dart';
 
 void main() => runApp(HomeAlternativo());
@@ -18,8 +18,12 @@ class HomeAlternativo extends StatefulWidget {
 
 class _HomeAlternativo extends State<HomeAlternativo> {
 
+  final _prefs = new PreferenciasUsuario();
+
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.loginBlocOf(context);
+
     // final size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
@@ -29,7 +33,7 @@ class _HomeAlternativo extends State<HomeAlternativo> {
                 children: <Widget>[
                   Stack(
                     children: <Widget>[
-                      _crearTitulo(),
+                      _crearTitulo(bloc),
                       Container(
                         height: 600,
                         margin: EdgeInsets.only(top: 200.0, bottom: 10.0),
@@ -59,7 +63,7 @@ class _HomeAlternativo extends State<HomeAlternativo> {
     );
   }
 
-  Widget _crearTitulo(){
+  Widget _crearTitulo(LoginBloc bloc){
     final size = MediaQuery.of(context).size;
     final randomNumber = Random();
 
@@ -91,7 +95,7 @@ class _HomeAlternativo extends State<HomeAlternativo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Hola Jairis Rosario!!', style: titleStyleWhite,),
+              Text('Hola ${_prefs.userName}!!', style: titleStyleWhite,),
               Text('Selecciona el servicio a evaluar', style: titleStyleWhite,)
             ],
           ),

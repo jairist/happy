@@ -6,7 +6,6 @@ import 'package:happy/src/models/evaluacion_model.dart';
 import 'package:happy/src/models/global.dart';
 import 'package:happy/src/provider/evaluacion_provider.dart';
 import 'package:happy/src/widgets/header.dart';
-import 'package:happy/src/widgets/star_display_widget.dart';
 import 'package:image_picker/image_picker.dart';
  
 void main() => runApp(EvaluacionPage());

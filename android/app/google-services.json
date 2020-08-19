@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "102503368328",
+    "firebase_url": "https://happy-a6611.firebaseio.com",
+    "project_id": "happy-a6611",
+    "storage_bucket": "happy-a6611.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102503368328:android:aca09445a09540024c813d",
+        "android_client_info": {
+          "package_name": "com.happy.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "102503368328-tu7f9p1sc2dqpijqkco3q3epkg5blrav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBESV54P6KMXfB13j5qZSJj9RXSnSQTb-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "102503368328-tu7f9p1sc2dqpijqkco3q3epkg5blrav.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

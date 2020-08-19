@@ -3,14 +3,16 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:happy/src/blocs/provider.dart';
+import 'package:happy/src/preferencias_usuario/preferencias_usuario.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  final _prefs = new PreferenciasUsuario();
 
   @override
   Widget build(BuildContext context) {
 
     final bloc = Provider.registerBlocOf(context);
+    
     // final userName = bloc.
 
     return Scaffold(
@@ -82,18 +84,16 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _titulos(RegisterBloc bloc ) {
+    
     return Container(
       padding: EdgeInsets.all(30.0),
-      
-      
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         
         children: <Widget>[
           Text('Bienvenido a Happy!', style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight:  FontWeight.bold),),
           SizedBox(height: 5.0,),
-          Text('${bloc.userName}', style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight:  FontWeight.w600, fontStyle: FontStyle.italic ),),
+          Text(_prefs.userName.toString(), style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight:  FontWeight.w600, fontStyle: FontStyle.italic ),),
           SizedBox(height: 10.0,),
           Text('Selecciona el servio a evaluar.', style: TextStyle(color: Colors.white,)),
         ],

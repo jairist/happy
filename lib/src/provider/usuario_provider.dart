@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:happy/src/preferencias_usuario/preferencias_usuario.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
 class UsuarioProvider{
@@ -22,10 +23,13 @@ class UsuarioProvider{
 
     Map<String, dynamic> decodedResp = json.decode(resp.body);
 
+    print('DecodeResp : ');
+
     print(decodedResp);
 
     if(decodedResp.containsKey('idToken') ){
       _prefs.token = decodedResp['idToken'];
+      //_prefs.userName = decodedResp['username'];
 
       return {'ok': true, 'token':decodedResp['idToken']};
     }else{
@@ -47,11 +51,12 @@ class UsuarioProvider{
     );
 
     Map<String, dynamic> decodedResp = json.decode(resp.body);
-
+    print('Registrando: ');
     print(decodedResp);
 
     if(decodedResp.containsKey('idToken') ){
-      //TODO: salvar el token en el storage
+      _prefs.token = decodedResp['idToken'];
+      //_prefs.userName = decodedResp['username'];
       return {'ok': true, 'token':decodedResp['idToken']};
     }else{
       return {'ok':false, 'mensaje': decodedResp['error']['message']};

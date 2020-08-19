@@ -29,7 +29,7 @@ class Provider extends InheritedWidget{
     return true;
   }
   
-  static LoginBloc of ( BuildContext context ){
+  static LoginBloc loginBlocOf ( BuildContext context ){
    return context.dependOnInheritedWidgetOfExactType<Provider>().loginBloc;
   }
 

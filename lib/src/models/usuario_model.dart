@@ -5,6 +5,7 @@ class UsuarioModel {
   static const String PassionCooking = 'Cooking';
   String firstName = '';
   String lastName = '';
+  
   Map passions = {
     PassionWriting: false,
     PassionSinging: false,
