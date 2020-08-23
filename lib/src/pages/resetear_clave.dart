@@ -13,7 +13,7 @@ import '../models/global.dart';
  
 // void main() => runApp(LoginPage());
  
-class LoginPage extends StatelessWidget {
+class ResetearClave extends StatelessWidget {
 
   final usuarioProvider = new UsuarioProvider();
   final _prefs = new PreferenciasUsuario();
@@ -25,14 +25,14 @@ class LoginPage extends StatelessWidget {
         body: Stack(
           children: <Widget>[
             _creaFondo(context),
-            _loginForm(context)
+            _resetForm(context)
 
           ]
           ),
       );
   }
 
-  Widget _loginForm(BuildContext context){
+  Widget _resetForm(BuildContext context){
     final bloc = Provider.of(context);
     final size = MediaQuery.of(context).size;
     var dimesionWidth = 0.85;
@@ -50,9 +50,6 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           contanierWithdDimension(size, bloc, dimesionWidth),
-          FlatButton(child:  Text('Olvidó su contraseña?'),
-              onPressed: ()=> Navigator.pushReplacementNamed(context, 'resetear'),
-          ),
          FlatButton(child:  Text('Crear una nueva cuenta'),
               onPressed: ()=> Navigator.pushReplacementNamed(context, 'registro'),
           ),
@@ -84,11 +81,9 @@ class LoginPage extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
-              Text ('Ingreso',style: TextStyle(fontSize: 20.0),),
+              Text ('Escribe correo electronico',style: TextStyle(fontSize: 20.0),),
               SizedBox(height: 20.0,),
               _crearEmail(bloc),
-              SizedBox(height: 10.0,),
-              _crearPassword(bloc),
               SizedBox(height: 30.0,),
               _crearBoton(bloc)
             ],
@@ -99,7 +94,6 @@ class LoginPage extends StatelessWidget {
   Widget _crearEmail(LoginBloc bloc){
 
     return  StreamBuilder(
-
       stream: bloc.emailStream,
       // initialData: initialData ,
       builder: (BuildContext context, AsyncSnapshot snapshot){
@@ -121,46 +115,18 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _crearPassword(LoginBloc bloc){
-
-    return StreamBuilder(
-      stream: bloc.passwordStream ,
-      // initialData: initialData ,
-      builder: (BuildContext context, AsyncSnapshot snapshot){
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: TextField(
-            obscureText: true,
-            // keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              icon: Icon(Icons.lock_outline, color: lightGreen,),
-              // hintText: 'ejemplo@correo.com',
-              labelText: 'Contraseña',
-              // counterText: snapshot.data,
-              errorText: snapshot.error
-            ),
-            onChanged: bloc.changePassword,
-          ),
-          
-        );
-      },
-    );
-  }
-
   Widget _crearBoton(LoginBloc bloc){
 
     return  StreamBuilder(
-      
-      stream: bloc.formValidStream,
+      //stream: bloc.formEmailStream,
       // initialData: initialData ,
       builder: (BuildContext context, AsyncSnapshot snapshot){ 
         return Hero(
-          tag: 'login',
+          tag: 'resetear',
           child: RaisedButton(
-            
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 20.0),
-              child: Text('Ingresar'),
+              child: Text('Resetear'),
             ),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),
@@ -169,30 +135,30 @@ class LoginPage extends StatelessWidget {
             elevation: 0.5,
             color: Colors.lightGreen,
             textColor: Colors.white,
-            onPressed: snapshot.hasData ? ()=> _register(bloc, context) : null
+            onPressed:()=> _resetearClave(bloc, context)
           ),
         );
       },
     );
   }
 
-    _register(LoginBloc bloc, BuildContext context) async {
+    _resetearClave(LoginBloc bloc, BuildContext context) async {
 
       // usuarioProvider.nuevoUsuario(bloc.email, bloc.password);
+      Map info =   await usuarioProvider.resetearClave(bloc.email);
 
-      Map info =   await usuarioProvider.login(bloc.email, bloc.password);
-
-      if(info['ok']){
-        Navigator.pushReplacementNamed(context, 'home');
-        
+      if (info['mensaje'].toString().contains('MISSING_EMAIL')){
+        utils.mostrarAlertaSinPopResetear(context);
 
       }else if(info['mensaje'].toString().contains('EMAIL_NOT_FOUND') ){
           utils.mostrarAlertaParaRegistro(context);
 
       }else{
-        utils.mostrarAlerta(context, 'Email o clave incorrecta, en caso de no recordar la clave, puedes resetearla' );
+        utils.mostrarAlertaParaResetearClave(context, bloc.email);
+        //Navigator.pushReplacementNamed(context, 'login');
 
       }
+
 
       // Navigator.pushReplacementNamed(context, 'login');
 
@@ -227,7 +193,7 @@ class LoginPage extends StatelessWidget {
       child: Column(children: <Widget>[
         Icon(Icons.sentiment_very_satisfied, color: Colors.white, size: 80.0,),
         SizedBox(height: 10.0, width: double.infinity,),
-        Text( 'Acceder', style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.bold),)
+        Text( 'Resetear Contraseña', style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.bold),)
       ],),
     );
     

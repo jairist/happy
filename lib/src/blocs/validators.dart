@@ -38,11 +38,50 @@ class Validators {
     handleData: (username, sink){
 
       //si el password introducido es mayor a 6 entonces lo dejo fluir de lo contrario no. 
-      if(username.length >= 6 && !username.contains(' ')){
+      if(username.length >= 5){
         sink.add(username);
 
       }else{
-        sink.addError('Más de 6 carácteres por favor y no debe contener espacios en blanco');
+        sink.addError('Más de 5 carácteres por favor ');
+      }
+    }
+    );
+
+    final validarNombreProveedor = StreamTransformer<String, String>.fromHandlers(
+    handleData: (nombre, sink){
+
+      //si el password introducido es mayor a 6 entonces lo dejo fluir de lo contrario no. 
+      if(nombre.length >= 4){
+        sink.add(nombre);
+
+      }else{
+        sink.addError('Más de 4 carácteres por favor');
+      }
+    }
+
+  );
+  final validarServicioProveedor = StreamTransformer<String, String>.fromHandlers(
+    handleData: (servcio, sink){
+
+      //si el password introducido es mayor a 6 entonces lo dejo fluir de lo contrario no. 
+      if(servcio.length >= 4 && !servcio.contains(' ')){
+        sink.add(servcio);
+
+      }else{
+        sink.addError('Más de 4 carácteres por favor y no debe contener espacios en blanco');
+      }
+    }
+
+  );
+  final validarDescripcionProveedor = StreamTransformer<String, String>.fromHandlers(
+    handleData: (servcio, sink){
+
+      //si el password introducido es mayor a 6 entonces lo dejo fluir de lo contrario no. 
+      if(servcio.length >= 2 ){
+        sink.add(servcio);
+
+      }else{
+        sink.addError('Más de 4 carácteres por favor y no debe contener espacios en blanco');
       }
     }
 

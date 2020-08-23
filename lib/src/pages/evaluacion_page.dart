@@ -199,7 +199,7 @@ class _EvaluacionPageState extends State<EvaluacionPage> {
 
 
 
-            Navigator.of(context).pushNamed('gracias');
+            Navigator.of(context).pushReplacementNamed('gracias');
           },
           
           );

@@ -22,7 +22,7 @@ class _HomeAlternativo extends State<HomeAlternativo> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.loginBlocOf(context);
+    final bloc = Provider.of(context);
 
     // final size = MediaQuery.of(context).size;
     return Scaffold(
@@ -116,14 +116,16 @@ titulo
 
     
   }
-  List<String> services = ["Comida", "Transporte", "Salud", "Educacion", "Finance"];
+
+  List<String> services = ["PedidosYa", "Fripick", "Creditos en Farmacia", "Combustible", "Club de Precios","Supermercados"];
 
   Map servicioToIcon = {
-    "Comida" : Icon(Icons.fastfood, color: lightBlueIsh, size: 50,),
-    "Transporte" : Icon(Icons.directions_car, color: lightBlueIsh, size: 50),
-    "Salud" : Icon(Icons.healing, color: lightBlueIsh, size: 50),
-    "Educacion" : Icon(Icons.book, color: lightBlueIsh, size: 50),
-    "Finance" : Icon(Icons.card_membership, color: lightBlueIsh, size: 50),
+    "PedidosYa" : Icon(Icons.fastfood, color: lightBlueIsh, size: 50,),
+    "Fripick" : Icon(Icons.directions_car, color: lightBlueIsh, size: 50),
+    "Creditos en Farmacia" : Icon(Icons.healing, color: lightBlueIsh, size: 50),
+    "Combustible" : Icon(Icons.local_gas_station, color: lightBlueIsh, size: 50),
+    "Club de Precios" : Icon(Icons.insert_emoticon, color: lightBlueIsh, size: 50),
+    "Supermercados" : Icon(Icons.store_mall_directory, color: lightBlueIsh, size: 50),
   };
 
   Widget _getServiceContainer(String categoryName) {

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 bool isNumeric(String s){
@@ -9,12 +11,18 @@ bool isNumeric(String s){
 
 }
 
+int randomNumber(){
+  var rng = new Random();
+  return rng.nextInt(100000);
+}
+
 void mostrarAlerta(BuildContext context, String mensaje){
   showDialog(
     context: context,
     builder: (context){
       return AlertDialog(
-        title: Text('Informacion incorrecta'),
+        title: Text('Informacion'),
+        backgroundColor: Colors.greenAccent,
         content: Text(mensaje),
         actions: <Widget>[
           FlatButton(
@@ -24,8 +32,61 @@ void mostrarAlerta(BuildContext context, String mensaje){
       );
     }
   );
-
 }
+void mostrarAlertaSinPopResetear(BuildContext context){
+  showDialog(
+    context: context,
+    builder: (context){
+      return AlertDialog(
+        title: Text('Informacion'),
+        backgroundColor: Colors.greenAccent,
+        content: Text('El campo email no puede estar vacio, por favor introduzca su email para enviar el correo de verificación '),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('OK'),
+            onPressed: ()=> Navigator.of(context).pushNamed('resetear')),
+        ],
+      );
+    }
+  );
+}
+
+  void mostrarAlertaParaRegistro(BuildContext context){
+  showDialog(
+    context: context,
+    builder: (context){
+      return AlertDialog(
+        title: Text('Ususario no registrado'),
+        backgroundColor: Colors.greenAccent,
+        content: Text('Usuario no registrador por favor registrate para acceder, es super fácil'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('REGISTRARME'),
+            onPressed: ()=> Navigator.pushNamed(context, 'registro')),
+        ],
+      );
+    }
+  );
+}
+ void mostrarAlertaParaResetearClave(BuildContext context, String email){
+  showDialog(
+    context: context,
+    builder: (context){
+      return AlertDialog(
+        title: Text('Resetear Clave'),
+        backgroundColor: Colors.greenAccent,
+        content: Text('Un correo electronico de recuperación ha sido enviado a el email: $email'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ir al Login'),
+            onPressed: ()=> Navigator.pushReplacementNamed(context, 'login')),
+        ],
+      );
+    }
+  );
+}
+
+
 List<MaterialColor> colors = [
   Colors.pink,
   Colors.amber,
@@ -65,12 +126,3 @@ List<String> elementsWeights = [
   "14.0067"
 ];
 List<String> elementsSymbol = ["H", "He", "Li", "Be", "B", "C", "N"];
-List<String> quotes = [
-  "I did you a big favor. I have successfully privatized world peace. What more do you want?",
-  "Following’s not really my style.",
-  "Jarvis, sometimes you gotta run before you can walk.",
-  "Okay, give me smooch for good luck, I might not make it back.",
-  "I told you, I don’t want to join your super secret boy band.",
-  "I am Iron Man.",
-  "My name is Tony Stark and I’m not afraid of you. I know you’re a coward, so I decided… that you just died, pal. I’m gonna come get the body. There’s no politics here, it’s just good old-fashioned revenge.",
-];

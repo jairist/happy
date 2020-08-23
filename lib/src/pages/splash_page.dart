@@ -18,14 +18,13 @@ class _GraciasPageState extends State<GraciasPage> {
   @override
   void initState(){
     super.initState();
-    if (kIsWeb) {
+    if (kIsWeb) { 
     // running on the web!
-      new Future.delayed(const Duration(seconds: 2), ()=> Navigator.of(context).pushNamed('login'));
+      new Future.delayed(const Duration(seconds: 2), ()=> Navigator.of(context).pushReplacementNamed('login'));
       } else {
     // NOT running on the web! You can check for additional platforms here.
-      new Future.delayed(const Duration(seconds: 5), ()=> Navigator.of(context).pushNamed('home'));
-      }
-    
+      new Future.delayed(const Duration(seconds: 5), ()=> Navigator.of(context).pushReplacementNamed('home'));
+      }  
   }
  
 
